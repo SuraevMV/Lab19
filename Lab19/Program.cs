@@ -39,14 +39,20 @@ namespace Lab19
                 .OrderBy(d => d.Price)
                 .ToList();
             Print(sortPrice);
-            
+
 
             // Список, сгруппированный по типу процессора
-            var typeProc = listComputer
-                .Where (d=>d.TypeProcessor=="AMD")
-                .ToList();
-            Print(typeProc);
-            
+            IEnumerable<IGrouping<string, Computer>> computer3 = listComputer.GroupBy(x => x.TypeProcessor);
+            foreach (IGrouping<string, Computer> gr in computer3)
+            {
+                Console.WriteLine(gr.Key);
+                foreach (Computer e in gr)
+                {
+                    Console.WriteLine($"{e.Code} {e.Name} {e.TypeProcessor} {e.Frequency} {e.VolumeRAM} {e.VolumeDisk} {e.VolumeVideoCard} {e.Price} {e.Count}");
+                }
+            }
+            Console.WriteLine();
+
 
             // Нахождение компьютера с максимальной ценной
             var max = listComputer
@@ -66,6 +72,7 @@ namespace Lab19
                 .Where(d => d.Count>=30)
                 .ToList();
             Print(count);
+            Console.ReadKey();
 
             
         }
